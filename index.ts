@@ -18,7 +18,7 @@ import { routeClient } from "./routes/client/index.route";
 
 // dotenv.config(); //Neu de cho nay, sequelize khong su dung duoc process.env vi chi bien dich tu dau den dong 15
 
-app.use('/static', express.static(path.join(__dirname, 'public')))
+app.use(express.static(`${__dirname}/public`)); // Nhung folder FE vao project
 app.set("views", "./views");
 app.set('view engine', "pug");
 

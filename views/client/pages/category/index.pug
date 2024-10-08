@@ -9,7 +9,7 @@ block main
     .row
       each item in categories
         .col-6.mb-3
-          a(href=`/tours/${item.slug}`)
+          a(href=`/tours/detail/${item.slug}`)
             div(class="card")
               img(src=item.image)
               div(class="card-body")

@@ -45,11 +45,28 @@ a:hover {
 /* box-head */
 .box-head {
   margin-bottom: 30px;
+  text-align: center;
 }
 .box-head .inner-title {
   margin-bottom: 0;
   font-size: 28px;
   font-weight: 600;
-  color: green;
+  color: #333333;
 }
 /* End box-head */
+
+/* category */
+.col-6.mb-3 .card {
+  height: 100%;
+}
+
+.col-6.mb-3 .card img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.col-6.mb-3 .card .card-body {
+  text-align: center;
+  color: #333333;
+}
+/*End category */

@@ -61,7 +61,7 @@ a:hover {
 }
 
 .col-6.mb-3 .card img {
-  height: 100%;
+  height: 50%;
   object-fit: cover;
 }
 
@@ -137,3 +137,15 @@ a:hover {
   height: auto;
 }
 /* End tour-detail */
+
+
+/* addition */
+.tour-imgs .swiper-slide {
+  opacity: 0.4;
+  margin-top: 12px;
+}
+
+.tour-imgs .swiper-slide-thumb-active {
+  opacity: 1;
+}
+/*End addition */

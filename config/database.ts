@@ -10,7 +10,7 @@ const sequelize = new Sequelize(
   dialect: 'mysql'
 });
 
-console.log(process.env.DB_NAME, process.env.DB_USER_NAME, process.env.DB_USER_PASS)
+// console.log(process.env.DB_NAME, process.env.DB_USER_NAME, process.env.DB_USER_PASS)
 
 sequelize.authenticate().then(() => {
   console.log('Kết nối DB thành công.');

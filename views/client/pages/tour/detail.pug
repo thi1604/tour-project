@@ -34,7 +34,7 @@ block main
           .inner-percent Giảm tới #{itemTour.discount}%
           form(
             form-add-to-cart
-            tour-id=`:tourId`
+            tour-id=itemTour.id
           )
             input(
               class="form-control mb-2"

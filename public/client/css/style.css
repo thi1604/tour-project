@@ -58,10 +58,12 @@ a:hover {
 /* category */
 .col-6.mb-3 .card {
   height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .col-6.mb-3 .card img {
-  height: 50%;
+  height: 80%;
   object-fit: cover;
 }
 

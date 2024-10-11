@@ -31,7 +31,6 @@ if(!cart){
 
 // showAlert
 
-
 const showAlert = () => {
   const alert = document.querySelector(".my-alert");
   if(alert){
@@ -42,9 +41,20 @@ const showAlert = () => {
   }
 }
 
-
 //End showAlert
 
+// showQuantityInCart
+const showCart = () => {
+  const cart = document.querySelector("[my-cart]");
+  if(cart){
+    const myCart = JSON.parse(localStorage.getItem("cart"));
+    const lengtCart = cart.querySelector("span");
+    lengtCart.innerHTML = myCart.length;
+  }
+}
+// EndshowQuantityInCart
+
+showCart();
 
 const formCart = document.querySelector("[form-add-to-cart]");
 if(formCart){
@@ -74,6 +84,7 @@ if(formCart){
       }
       localStorage.setItem("cart", JSON.stringify(cart));
       showAlert();
+      showCart();
     }
   });
 }

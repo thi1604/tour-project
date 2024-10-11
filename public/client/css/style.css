@@ -63,7 +63,8 @@ a:hover {
 }
 
 .col-6.mb-3 .card img {
-  height: 80%;
+  width: 100%;
+  aspect-ratio: 16/9;
   object-fit: cover;
 }
 
@@ -168,5 +169,8 @@ a:hover {
   display: inline-block;
 }
 
-
 /* End alert */
+
+/* .col-8 {
+  width: 50%;
+} */

@@ -29,6 +29,22 @@ if(!cart){
   localStorage.setItem("cart", JSON.stringify([]));
 };
 
+// showAlert
+
+
+const showAlert = () => {
+  const alert = document.querySelector(".my-alert");
+  if(alert){
+    alert.setAttribute("show", "play");
+    setTimeout(()=>{
+      alert.setAttribute("show", "hidden");
+    }, 1500);
+  }
+}
+
+
+//End showAlert
+
 
 const formCart = document.querySelector("[form-add-to-cart]");
 if(formCart){
@@ -57,6 +73,7 @@ if(formCart){
         cart.push(newTour);
       }
       localStorage.setItem("cart", JSON.stringify(cart));
+      showAlert();
     }
   });
 }

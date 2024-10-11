@@ -151,3 +151,22 @@ a:hover {
   opacity: 1;
 }
 /*End addition */
+
+/* alert */
+.my-alert {
+  width: 30%;
+  position: absolute;
+  top: 30px;
+  right: 10px;
+}
+
+.my-alert[show=hidden] {
+  display: none;
+}
+
+.my-alert[show=play] {
+  display: inline-block;
+}
+
+
+/* End alert */

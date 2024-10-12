@@ -89,6 +89,22 @@ if(formCart){
   });
 }
 
+const deleteTour = () => {
+  const listButtonDel = document.querySelectorAll("[btn-delete]");
+  if(listButtonDel.length > 0){
+    listButtonDel.forEach(item => {
+      item.addEventListener("click", ()=> {
+        const tourId = item.getAttribute("btn-delete");
+        // console.log(tourId);
+        const listTourId = JSON.parse(localStorage.getItem("cart"));
+        const updateCart = listTourId.filter(item=> item.tourId != tourId);
+        localStorage.setItem("cart", JSON.stringify(updateCart));
+        window.location.reload();
+      });
+    });
+  }
+};
+
 const tableCart = document.querySelector("[table-cart]");
 if(tableCart){
   fetch("cart/listTourJson",{
@@ -126,7 +142,11 @@ if(tableCart){
     `)
     const tbody = tableCart.querySelector("tbody");
     tbody.innerHTML = htmlArray.join("");
-
+    let totalElement = document.querySelector("span[total-price]");
+    if(totalElement){
+      totalElement.innerHTML = data.totalCart.toLocaleString();
+    }
+    deleteTour();
   }
   })
 }

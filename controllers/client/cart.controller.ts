@@ -12,6 +12,7 @@ export const listCartJson = async (req: Request, res: Response) => {
   // console.log(req.body);
   if(req.body){
     let dataListTour = req.body;
+    let totalCart = 0;
     for (const item of dataListTour) {
       const record = await tourModel.findOne({
         where: {
@@ -24,6 +25,7 @@ export const listCartJson = async (req: Request, res: Response) => {
       // console.log(record);
       record["priceSpecial"] = (1 - record["discount"]/100) * record["price"];
       item["total"] = record["priceSpecial"] * item["quantity"];
+      totalCart += item["total"];
       const listImg = JSON.parse(record["images"]);
       item["image"] = listImg[0];
       item["price"] = record["price"];
@@ -33,7 +35,8 @@ export const listCartJson = async (req: Request, res: Response) => {
     // console.log(dataListTour);
     res.json({
       code: 200,
-      listTours: dataListTour
+      listTours: dataListTour,
+      totalCart: totalCart
     });
   }
   else{

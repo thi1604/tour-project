@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { generateOrderCode } from "../../helpers/generate.helper";
+import { sendEmail } from "../../helpers/sendEmail.helper";
 import { orderItemModel } from "../../models/order-item.model";
 import { orderModel } from "../../models/order.model";
 import { tourModel } from "../../models/tour.model";
@@ -76,7 +77,7 @@ export const orderSuccess = async (req: Request, res: Response) => {
     where: {
       code: code
     },
-    attributes: ["id"],
+    attributes: ["id", "email", "code", "fullName"],
     raw: true
   });
 
@@ -112,6 +113,10 @@ export const orderSuccess = async (req: Request, res: Response) => {
   }
 
   // console.log(dataOrder);
+  sendEmail(order["email"], `Thông báo xác nhận đơn hàng #${order["id"]}`, `<b>Cám ơn bạn đã đặt tour của chúng tôi!</b><br>
+  Xin chào ${order["fullName"]}!, Chúng tôi đã nhận được đơn đặt tour của bạn và đã sẵn sàng sắp xếp thời gian. Chúng tôi sẽ thông báo tới bạn thời gian sớm nhất.
+  <br>Chúc một ngày tốt lành! ^^ 
+  `);
 
   res.render("client/pages/order/success.pug", {
     pageTitle: "Trang thông tin đơn hàng",

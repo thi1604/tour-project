@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { generateOrderCode } from "../../helpers/generate.helper";
+import { orderItemModel } from "../../models/order-item.model";
 import { orderModel } from "../../models/order.model";
+import { tourModel } from "../../models/tour.model";
 
 export const orderPost = async (req: Request, res: Response) => {
   
@@ -33,11 +35,35 @@ export const orderPost = async (req: Request, res: Response) => {
         id: record.dataValues.id
       }
     })
-
     // Update order-item table
-    
-
-
+    for (const item of listTourInCart) {
+      try {
+        const tour = await tourModel.findOne({
+          where: {
+            id: item["tourId"]
+          }
+        });
+        if(tour){
+          const dataOrderItem = {
+            tourId: tour["id"],
+            orderId: record["id"],
+            quantity: item["quantity"],
+            price: tour["price"],
+            discount: tour["discount"],
+            timeStart: tour["timeStart"]
+          }
+          console.log(dataOrderItem);
+          try {
+            await orderItemModel.create(dataOrderItem);
+            
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      } catch (error) {
+        continue;
+      }
+    }
     res.json({
       code: 200,
       codeOrderId: record.dataValues.code

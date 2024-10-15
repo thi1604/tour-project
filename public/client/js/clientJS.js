@@ -1,3 +1,7 @@
+// const { json } = require("stream/consumers");
+
+// import {json} from "stream/consumers";
+
 // Display image follow Swiper
 const tourImage = document.querySelector(".tour-imgs");
 
@@ -149,4 +153,35 @@ if(tableCart){
     deleteTour();
   }
   })
+}
+
+
+const formOrder = document.querySelector("[form-order]");
+if(formOrder){
+  formOrder.addEventListener("submit", (event)=> {
+    event.preventDefault();
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    const dataCart = {
+      infor: {
+        fullName: formOrder.fullName.value,
+        phone: formOrder.phone.value,
+        note: formOrder.note.value,
+        email: formOrder.email.value
+      },
+      cart: cart
+    }
+    fetch("/order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(dataCart)
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(data.code == 200){
+        console.log("ok");
+      }
+    })
+  });
 }

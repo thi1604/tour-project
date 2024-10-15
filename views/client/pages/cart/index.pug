@@ -28,7 +28,7 @@ block main
 
         form(form-order)
           div(class="form-group")
-            label(for="fullName") Họ tên
+            label(for="fullName") Họ tên *
             input(
               type="text"
               class="form-control"
@@ -37,7 +37,16 @@ block main
               required
             )
           div(class="form-group")
-            label(for="phone") Số điện thoại
+            label(for="email") Email *
+            input(
+              type="text"
+              class="form-control"
+              id="email"
+              name="email"
+              required
+            )
+          div(class="form-group")
+            label(for="phone") Số điện thoại *
             input(
               type="text"
               class="form-control"

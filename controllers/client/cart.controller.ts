@@ -44,5 +44,4 @@ export const listCartJson = async (req: Request, res: Response) => {
       code: 400
     })
   }
-  
 }

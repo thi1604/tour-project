@@ -6,8 +6,6 @@ import { tourModel } from "../../models/tour.model";
 
 export const orderPost = async (req: Request, res: Response) => {
   
-  // console.log(req.body);
-
   const {fullName, phone, email} = req.body["infor"];
   const listTourInCart = req.body["cart"];
 
@@ -28,8 +26,9 @@ export const orderPost = async (req: Request, res: Response) => {
     }
     const record = await orderModel.create(dataOrder);
     // updated code in record
+    const code = generateOrderCode(record.dataValues.id);
     await orderModel.update({
-      code : generateOrderCode(record.dataValues.id)
+      code : code
     }, {
       where: {
         id: record.dataValues.id
@@ -52,7 +51,7 @@ export const orderPost = async (req: Request, res: Response) => {
             discount: tour["discount"],
             timeStart: tour["timeStart"]
           }
-          console.log(dataOrderItem);
+          // console.log(dataOrderItem);
           try {
             await orderItemModel.create(dataOrderItem);
             
@@ -66,7 +65,56 @@ export const orderPost = async (req: Request, res: Response) => {
     }
     res.json({
       code: 200,
-      codeOrderId: record.dataValues.code
+      codeOrderId: code
     });
   }
+}
+
+export const orderSuccess = async (req: Request, res: Response) => {
+  const code = req.params.codeOrder;
+  const order = await orderModel.findOne({
+    where: {
+      code: code
+    },
+    attributes: ["id"],
+    raw: true
+  });
+
+  const listTourInOrder = await orderItemModel.findAll({
+    where: {
+      orderId: order["id"]
+    },
+    raw: true 
+  });
+  let totalPrice = 0;
+  for (const item of listTourInOrder) {
+    const record = await tourModel.findOne({
+      where: {
+        id: item["tourId"],
+        deleted: false,
+        status: "active"
+      },
+      attributes: ["images", "title"],
+      raw: true
+    });
+    item["priceSpecial"] = (1 - item["discount"]/100) * item["price"];
+    item["total"] = item["priceSpecial"] * item["quantity"];
+    totalPrice += item["total"];
+    const listImg = JSON.parse(record["images"]);
+    item["image"] = listImg[0];
+    item["title"] = record["title"]
+  } 
+
+  const dataOrder = {
+    inforUser: order,
+    listTour: listTourInOrder,
+    totalPrice: totalPrice
+  }
+
+  // console.log(dataOrder);
+
+  res.render("client/pages/order/success.pug", {
+    pageTitle: "Trang thông tin đơn hàng",
+    dataOrder: dataOrder
+  });
 }

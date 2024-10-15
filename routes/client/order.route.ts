@@ -4,5 +4,7 @@ const route = express.Router();
 
 route.post("", controller.orderPost);
 
+route.get("/success/:codeOrder", controller.orderSuccess);
+
 
 export const routeOrder = route;

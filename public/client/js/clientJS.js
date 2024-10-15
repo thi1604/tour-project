@@ -180,7 +180,12 @@ if(formOrder){
     .then(res => res.json())
     .then(data => {
       if(data.code == 200){
-        console.log("ok");
+        localStorage.setItem("cart", JSON.stringify([]));
+        console.log(data);
+        window.location.href = `/order/success/${data.codeOrderId}`;
+      }
+      else{
+        console.log("error");
       }
     })
   });

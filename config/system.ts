@@ -1,3 +1,5 @@
 
-export const prefixAdmin : string  =  "admin";
 
+const prefixAdmin : string = "admin";
+
+export default  prefixAdmin; 

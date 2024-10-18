@@ -1,0 +1,51 @@
+//- var role = {};
+
+.sider
+  .inner-menu
+    ul(
+      my-list-admin
+    ) 
+      li
+        a(href=`/${prefix}/dashboard`) Tổng quan
+      //- if(role.permissions.includes("products_view"))
+      li
+        a(href=`/${prefix}/product`) Quản lí sản phẩm
+      //- if(role.permissions.includes("products-category_view"))
+      li
+        a(href=`/${prefix}/products-category`) Danh mục sản phẩm
+      //- if(role.permissions.includes("roles_view"))
+      li
+        a(href=`/${prefix}/roles`) Nhóm quyền
+      //- if(role.permissions.includes("roles_permissions"))  
+      li
+        a(href=`/${prefix}/roles/permissions`) Phân quyền
+      //- if(role.permissions.includes("accounts_view"))  
+      li
+        a(href=`/${prefix}/accounts`) Tài khoản admin
+      //- if(role.permissions.includes("trash_view"))
+      li
+        a(
+          class = "trash"
+          href=`/${prefix}/trash`
+        ) Thùng rác
+        .btn-group.dropup.trash
+          button.btn.btn-secondary.dropdown-toggle(type='button' data-toggle='dropdown' aria-expanded='false')
+            | Thùng rác
+          .dropdown-menu
+            a(
+              class = "dropdown-item"
+              href=`/${prefix}/trash/products`
+            ) Sản phẩm
+            a(
+              class = "dropdown-item"
+              href=`/${prefix}/trash/role`
+            ) Nhóm quyền
+            a(
+              class = "dropdown-item"
+              href=`/${prefix}/trash/account`
+            ) Tài khoản admin
+              
+              
+      //- if(role.permissions.includes("setting_view"))
+      li
+        a(href=`/${prefix}/setting/general`) Cài đặt chung

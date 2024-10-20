@@ -1,15 +1,13 @@
 extends ../../layouts/default.pug
-include ../../mixins/select-tree.pug
 
 block main
-  if(role.permissions.includes("products_create"))
+  h1(class="mb-4") #{pageTitle}
 
-    h1(class="mb-4") #{pageTitle}
-
-    form(
-      action=`/${prefix}/product/create`
+  form(
+      action=`/${prefix}/tours/create`
       method="POST"
       enctype="multipart/form-data"
+      create-new-tour
     )
       div(class="form-group")
         label(for="title") Tiêu đề
@@ -20,44 +18,30 @@ block main
           name="title"
           required
         )
-      div(class="form-group form-check form-check-inline")
+      div(class="form-group")
+        div(class="choose-category") Danh mục cha <br>
+          div(class="row row-cols-3")
+            each item in listCategory
+              div(class="category-for-tour")
+                label(for=item.id) #{item.title}
+                input(
+                  type="checkbox" 
+                  value=item.id 
+                  id=item.id 
+                  class="col"
+                  name="list-id"
+                )
+      div(class="form-group")
+        label(for="images") Chọn nhiều ảnh
         input(
-          type="radio"
-          class="form-check-input"
-          id="feauted1"
-          name="feauted"
-          value="1"
+          type="file"
+          class="form-control-file"
+          id="images"
+          name="images"
+          accept="image/*"
+          multiple
         )
-        label(for="feauted1" class="form-check-label") Nổi bật
-      div(class="form-group form-check form-check-inline")
-        input(
-          type="radio"
-          class="form-check-input"
-          id="feauted0"
-          name="feauted"
-          value="0"
-          checked
-        )
-        label(for="feauted0" class="form-check-label") Không nổi bật
-      div(class="form-group")
-        label(for="parent_id") Danh mục cha
-        select(
-          class="form-control"
-          id="parent_id"
-          name="parent_id"
-        )
-          option(value="") -- Chọn danh mục cha --
-          +selectTree(treeCategory)
-      div(class="form-group")
-        label(for="desc") Mô tả
-        textarea(
-          class="form-control"
-          id="desc"
-          name="description"
-          rows="5"
-          textarea-mce
-        )
-      div(class="form-group")
+        div(class="form-group")
         label(for="price") Giá
         input(
           type="number"
@@ -73,7 +57,7 @@ block main
           type="number"
           class="form-control"
           id="discount"
-          name="discountPercentage"
+          name="discount"
           value="0"
           min="0"
         )
@@ -87,23 +71,15 @@ block main
           value="0"
           min="0"
         )
-      div(
-        class="form-group"
-        upload-image 
-      )
-        label(for="thumbnail") Ảnh
+      div(class="form-group")
+        label(for="timeStart") Lịch khởi hành
         input(
-          type="file"
-          class="form-control-file"
-          id="thumbnail"
-          upload-image-input
-          name="thumbnail"
-          accept = "image/*" 
-        )
-        img(
-          class = "image-preview"
-          upload-image-preview
-          src=""
+          type="datetime-local"
+          class="form-control"
+          id="timeStart"
+          name="timeStart"
+          value="0"
+          min="0"
         )
       div(class="form-group")
         label(for="position") Vị trí
@@ -122,6 +98,7 @@ block main
           id="statusActive"
           name="status"
           value="active"
+          input-status
           checked
         )
         label(for="statusActive" class="form-check-label") Hoạt động
@@ -132,6 +109,7 @@ block main
           id="statusInActive"
           name="status"
           value="inactive"
+          input-status
         )
         label(for="statusInActive" class="form-check-label") Dừng hoạt động
       div(class="form-group")

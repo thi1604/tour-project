@@ -15,5 +15,4 @@ export const index = async (req: Request, res: Response) => {
     pageTitle: "Trang danh mục tour",
     listRecord: listCategory
   });
-
 };

@@ -114,3 +114,22 @@
   background-color: #323232;
 }
 /* EndTrash */
+
+
+/* category-for-tour */
+.category-for-tour {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.choose-category .row {
+  margin: 0px;
+  gap: 5px 50px;
+}
+
+.choose-category .row input {
+  flex-grow: 0;
+}
+/* End category-for-tour */

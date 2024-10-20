@@ -22,7 +22,8 @@ import prefixAdmin from "./config/system";
 
 app.use(express.static(`${__dirname}/public`)); // Nhung folder FE vao project
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded())
+app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.urlencoded())
 // parse application/json
 app.use(bodyParser.json())
 app.set("views", "./views");

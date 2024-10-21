@@ -29,7 +29,8 @@ app.use(bodyParser.json())
 app.set("views", "./views");
 app.set('view engine', "pug");
 app.locals["prefix"] = prefixAdmin;
-
+//Nhung tinymce
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 sequelize; //Connect to my database
 
 routeClient(app);
